@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:quickshell.outfoxxed.me)",
+      "WebFetch(domain:quickshell.org)",
+      "WebFetch(domain:www.tonybtw.com)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:deepwiki.com)",
+      "WebFetch(domain:doc.qt.io)"
+    ]
+  }
+}
