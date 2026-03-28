@@ -1,3 +1,6 @@
+git
+base-devel
+yay
 hyprpolkitagent
 dunst
 waybar
@@ -18,3 +21,9 @@ quickshell
 toilet
 rofi
 yazi
+obsidian
+gnome-keyring
+hyprshot
+heroic-games-launcher-bin
+zsh
+starship
