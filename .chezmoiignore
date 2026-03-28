@@ -1,0 +1,8 @@
+
+# ignored organizational directories 
+/packages
+/scripts
+
+# ignored notes files
+README.md
+notes.md
