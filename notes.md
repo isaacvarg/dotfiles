@@ -74,7 +74,10 @@ chsh -s /usr/bin/zsh
 
 ```
 
+### mise
 
+`echo 'eval "$(mise activate zsh)"' >> "${ZDOTDIR-$HOME}/.zshrc"`
+```
 
 
 

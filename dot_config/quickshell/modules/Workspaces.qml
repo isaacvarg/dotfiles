@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
 import Quickshell.Hyprland
+import qs.assets.theme
 
 RowLayout {
     spacing: 4
@@ -15,13 +16,13 @@ RowLayout {
             height: 24
             radius: 4
 
-            color: modelData.focused ? "#cba6f7"
-                 : modelData.active  ? "#585b70"
-                                     : "#313244"
+            color: modelData.focused ? Theme.iris
+                 : modelData.active  ? Theme.highlightHigh
+                                     : Theme.highlightMed
 
             Text {
                 text: modelData.id
-                color: modelData.focused ? "#1e1e2e" : "#cdd6f4"
+                color: modelData.focused ? Theme.base : Theme.text
                 font.pixelSize: 12
                 font.bold: modelData.focused
                 anchors.centerIn: parent

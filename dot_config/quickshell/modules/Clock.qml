@@ -1,10 +1,11 @@
 import QtQuick
 import Quickshell
+import qs.assets.theme
 
 Text {
     id: clock
 
-    color: "#cdd6f4"
+    color: Theme.text
     font.pixelSize: 14
 
     SystemClock {

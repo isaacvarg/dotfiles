@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Services.SystemTray
+import qs.assets.theme
 
 RowLayout {
     id: root
@@ -15,8 +16,8 @@ RowLayout {
         delegate: Item {
             required property SystemTrayItem modelData
 
-            implicitWidth: 24
-            implicitHeight: 24
+            width: 24
+            height: 24
 
             Image {
                 anchors.centerIn: parent
