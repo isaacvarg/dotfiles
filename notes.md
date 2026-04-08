@@ -84,4 +84,8 @@ chsh -s /usr/bin/zsh
 
 
 
+## NAS
+- I had to make a sudoers rule
+- check obsidian for details on how to automate this and what i did
+- the mount-nas script is the same as the one in /dot_local/bin/ in chezmoi..i am trying to decide how I want to have this in my dotfles
 
