@@ -29,6 +29,9 @@ certain apps do not use the typical dotfile way of configuration so my changes a
 
 ### vivaldi
 
+#### plugins
+ [Raindrop](https://chromewebstore.google.com/detail/raindropio/ldgfbffkinooeloadekpmfoklnobpien)
+
 #### general
 - homepage = specific page, this is our self hosted bookmark page
 - i am experimenting with starting up with the last session
