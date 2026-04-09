@@ -2,5 +2,8 @@ import Quickshell
 import qs.modules
 
 ShellRoot {
-    Bar {}
+    Variants {
+        model: Quickshell.screens
+        delegate: Bar {}
+    }
 }

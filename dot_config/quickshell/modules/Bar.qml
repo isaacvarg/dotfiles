@@ -5,6 +5,8 @@ import qs.assets.theme
 
 PanelWindow {
     id: bar
+    required property var modelData
+    screen: modelData
 
     anchors {
         top: true
@@ -48,6 +50,7 @@ PanelWindow {
             Workspaces {
                 id: workspacesItem
                 anchors.centerIn: parent
+                screenName: bar.screen.name
             }
         }
 

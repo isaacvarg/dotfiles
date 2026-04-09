@@ -6,11 +6,13 @@ import qs.assets.theme
 RowLayout {
     spacing: 4
 
+    property string screenName: ""
+
     Repeater {
-        model: Hyprland.workspaces
+        model: Hyprland.workspaces.values.filter(ws => ws.monitor && ws.monitor.name === screenName)
 
         delegate: Rectangle {
-            required property HyprlandWorkspace modelData
+            required property var modelData
 
             width: 24
             height: 24
