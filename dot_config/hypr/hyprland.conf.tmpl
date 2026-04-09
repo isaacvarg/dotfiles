@@ -10,8 +10,14 @@ source = ~/.config/hypr/keybinds.conf
 # │ＭＯＮＩＴＯＲＳ│
 # └────────────────┘
 
+{{- if eq .system "home" }}
 monitor = DP-1, 2560x1440@144, 0x0, 1
+{{- end }}
 
+{{- if eq .system "wurk"}}
+monitor = DP-1, 2560x1440@75, 0x1440, 1
+monitor = HDMI-A-1, 2560x1440@60, 0x0, 1
+{{- end}}
 
 # ┌──────────────────┐
 # │ＡＵＴＯＳＴＡＲＴ│
