@@ -1,0 +1,6 @@
+# Custom installs 
+# format: name | check_command | install_command
+# check_command determines if it's already installed (exit 0 = skip)
+# if your leaving check_command empty keep the | to always run
+
+# examplechezmoi     | command -v chezmoi         | sh -c "$(curl -fsLS get.chezmoi.io)" -- -b ~/.local/bin

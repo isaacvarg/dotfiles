@@ -1,0 +1,192 @@
+#!/bin/bash
+# hashes that help trigger onchange
+# pacman: {{ include "packages/pacman" | sha256sum }}
+# aur:    {{ include "packages/aur"    | sha256sum }}
+# flatpak:{{ include "packages/flatpak" | sha256sum }}
+# custom: {{ include "packages/custom"  | sha256sum }}
+
+# keeps the script going through fails
+set -euo pipefail
+
+# package files
+CHEZMOI_SOURCE="{{ .chezmoi.sourceDir }}"
+PKG_DIR="${CHEZMOI_SOURCE}/packages"
+
+# functions to have pretty logs
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+RED='\033[0;31m'
+RESET='\033[0m'
+
+info() { echo -e "${GREEN}[packages]${RESET} $*"; }
+warn() { echo -e "${YELLOW}[packages]${RESET} $*"; }
+error() { echo -e "${RED}[packages]${RESET} $*" >&2; }
+
+# read a package file n take out comments and blank lines
+read_list() {
+  local file="$1"
+  if [[ -f "$file" ]]; then
+    grep -v '^\s*#' "$file" | grep -v '^\s*$' || true
+  fi
+}
+
+# pacman / packages from core and extra
+install_pacman() {
+  local file="${PKG_DIR}/pacman"
+  local -a pkgs=()
+
+  while IFS= read -r pkg; do
+    pkgs+=("$pkg")
+  done < <(read_list "$file")
+
+  if ((${#pkgs[@]} == 0)); then
+    info "No pacman packages to install."
+    return
+  fi
+
+  # filter out already-installed packages
+  local -a missing=()
+  for pkg in "${pkgs[@]}"; do
+    if ! pacman -Qi "$pkg" &>/dev/null; then
+      missing+=("$pkg")
+    fi
+  done
+
+  if ((${#missing[@]} == 0)); then
+    info "All pacman packages already installed."
+    return
+  fi
+
+  info "Installing ${#missing[@]} pacman package(s): ${missing[*]}"
+  sudo pacman -S --needed --noconfirm "${missing[@]}"
+}
+
+# aur packages
+install_aur() {
+  local file="${PKG_DIR}/aur"
+  local aur_helper=""
+
+  # detect aur helper
+  for helper in paru yay; do
+    if command -v "$helper" &>/dev/null; then
+      aur_helper="$helper"
+      break
+    fi
+  done
+
+  if [[ -z "$aur_helper" ]]; then
+    warn "No AUR helper found (paru or yay). Skipping AUR packages."
+    return
+  fi
+
+  local -a pkgs=()
+  while IFS= read -r pkg; do
+    pkgs+=("$pkg")
+  done < <(read_list "$file")
+
+  if ((${#pkgs[@]} == 0)); then
+    info "No AUR packages to install."
+    return
+  fi
+
+  local -a missing=()
+  for pkg in "${pkgs[@]}"; do
+    if ! pacman -Qi "$pkg" &>/dev/null; then
+      missing+=("$pkg")
+    fi
+  done
+
+  if ((${#missing[@]} == 0)); then
+    info "All AUR packages already installed."
+    return
+  fi
+
+  info "Installing ${#missing[@]} AUR package(s) via ${aur_helper}: ${missing[*]}"
+  "$aur_helper" -S --needed --noconfirm "${missing[@]}"
+}
+
+# flatpak
+install_flatpak() {
+  local file="${PKG_DIR}/flatpak"
+
+  if ! command -v flatpak &>/dev/null; then
+    warn "flatpak not found. Skipping flatpak packages."
+    return
+  fi
+
+  local -a app_ids=()
+  while IFS= read -r app_id; do
+    app_ids+=("$app_id")
+  done < <(read_list "$file")
+
+  if ((${#app_ids[@]} == 0)); then
+    info "No flatpak packages to install."
+    return
+  fi
+
+  local -a missing=()
+  for app_id in "${app_ids[@]}"; do
+    if ! flatpak info "$app_id" &>/dev/null 2>&1; then
+      missing+=("$app_id")
+    fi
+  done
+
+  if ((${#missing[@]} == 0)); then
+    info "All flatpak packages already installed."
+    return
+  fi
+
+  info "Installing ${#missing[@]} flatpak package(s): ${missing[*]}"
+  for app_id in "${missing[@]}"; do
+    flatpak install -y flathub "$app_id" || error "Failed to install flatpak: ${app_id}"
+  done
+}
+
+# custom installation
+# think things that need to be isntalled via a command
+install_custom() {
+  local file="${PKG_DIR}/custom"
+
+  if [[ ! -f "$file" ]]; then
+    info "No custom packages file found."
+    return
+  fi
+
+  local count=0
+  while IFS='|' read -r name check cmd; do
+    # Strip whitespace
+    name="$(echo "$name" | xargs)"
+    check="$(echo "$check" | xargs)"
+    cmd="$(echo "$cmd" | xargs)"
+
+    [[ -z "$name" || -z "$cmd" ]] && continue
+
+    # when a check command is provided, test whether it's already installed
+    if [[ -n "$check" ]]; then
+      if eval "$check" &>/dev/null; then
+        info "Custom: ${name} already installed."
+        continue
+      fi
+    fi
+
+    info "Custom: Installing ${name}..."
+    if eval "$cmd"; then
+      info "Custom: ${name} installed successfully."
+    else
+      error "Custom: Failed to install ${name}."
+    fi
+    ((count++))
+  done < <(read_list "$file")
+
+  if ((count == 0)); then
+    info "All custom packages already installed."
+  fi
+}
+
+# runners
+info "📦 Starting package installation..."
+install_pacman
+install_aur
+install_flatpak
+install_custom
+info "🥳 Package installation done!!"

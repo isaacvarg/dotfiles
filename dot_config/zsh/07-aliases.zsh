@@ -2,12 +2,10 @@
 alias ff="clear && fastfetch"
 
 # list using eza instead of ls 
-alias ll="eza -lha --no-user"
+alias ll="eza -lha --no-user --icons --group-directories-first"
 alias la="eza -a"
 alias ls="eza"
-alias l="eza"
-alias lt="eza -T"
-alias lr="eza -R"
+alias lt="eza -T --icons --level=2"
 
 # my hate to be that guy aliases haha
 # but my muscle memory makes me keep these 😭
