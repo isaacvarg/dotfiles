@@ -1,3 +1,5 @@
 [data]
   # get from 'op account list'
   op_account = "ABCDE12345"
+  # use wurk, home, laptop
+  system = "wurk"
