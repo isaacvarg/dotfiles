@@ -1,6 +1,28 @@
 #!/bin/bash
 CRED_FILE="/run/user/$(id -u)/nas-creds"
+OP_ACCOUNT="{{ .op_account }}"
 
+# wait for 1password to start
+# prompt signin
+MAX_WAIT=60
+WAITED=0
+SIGNIN_PROMPTED=false
+
+until op whoami --account "$OP_ACCOUNT" &>/dev/null; do
+  if [ "$WAITED" -ge 5 ] && [ "$SIGNIN_PROMPTED" = false ]; then
+    op signin --account "$OP_ACCOUNT" &>/dev/null &
+    SIGNIN_PROMPTED=true
+  fi
+
+  sleep 2
+  WAITED=$((WAITED + 2))
+  if [ "$WAITED" -ge "$MAX_WAIT" ]; then
+    notify-send "NAS Mount" "1Password not available after ${MAX_WAIT}s — skipping mount" --urgency=critical
+    exit 1
+  fi
+done
+
+# get user credentials
 OP_USER=$(op item get "nas-credentials" --fields username 2>/dev/null)
 OP_PASS=$(op item get "nas-credentials" --fields password --reveal 2>/dev/null)
 
