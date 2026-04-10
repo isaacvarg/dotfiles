@@ -4,7 +4,7 @@
 /scripts
 
 # repo help files
-.chezmoi.toml.example
+chezmoi.toml.example
 
 # ignored notes files
 README.md
