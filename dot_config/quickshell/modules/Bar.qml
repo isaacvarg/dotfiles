@@ -57,6 +57,19 @@ PanelWindow {
         // Push tray to right
         Item { Layout.fillWidth: true }
 
+        // Right: Bluetooth island
+        Rectangle {
+            color: Theme.base
+            radius: 8
+            Layout.preferredWidth: bluetoothItem.implicitWidth + 16
+            Layout.preferredHeight: bluetoothItem.implicitHeight + 8
+
+            Bluetooth {
+                id: bluetoothItem
+                anchors.centerIn: parent
+            }
+        }
+
         // Right: Status tray island
         Rectangle {
             color: Theme.base
