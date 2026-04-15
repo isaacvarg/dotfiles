@@ -37,6 +37,19 @@ PanelWindow {
             }
         }
 
+        // Left: Date island
+        Rectangle {
+            color: Theme.base
+            radius: 8
+            Layout.preferredWidth: dateItem.implicitWidth + 16
+            Layout.preferredHeight: dateItem.implicitHeight + 8
+
+            DateDisplay {
+                id: dateItem
+                anchors.centerIn: parent
+            }
+        }
+
         // Push workspaces to center
         Item { Layout.fillWidth: true }
 
