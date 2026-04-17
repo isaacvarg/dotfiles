@@ -54,6 +54,8 @@ general {
 
 
 
+
+
 # ┌──────────────────────┐
 # │ＵＮＯＲＧＡＮＩＺＥＤ│
 # └──────────────────────┘
@@ -243,6 +245,17 @@ device {
 ##############################
 ### WINDOWS AND WORKSPACES ###
 ##############################
+
+# no border for floating windows/not full sized windows
+# think, guild wars 2 client
+
+windowrule {
+    name = clean-floating-windows
+    match:float = true
+    border_size = 0
+    no_shadow = on
+}
+
 
 # See https://wiki.hypr.land/Configuring/Window-Rules/ for more
 # See https://wiki.hypr.land/Configuring/Workspace-Rules/ for workspace rules
