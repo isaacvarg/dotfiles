@@ -4,3 +4,4 @@
 # if your leaving check_command empty keep the | to always run
 
 # examplechezmoi     | command -v chezmoi         | sh -c "$(curl -fsLS get.chezmoi.io)" -- -b ~/.local/bin
+claude code | command -v claude | curl -fsSL https://claude.ai/install.sh | bash
