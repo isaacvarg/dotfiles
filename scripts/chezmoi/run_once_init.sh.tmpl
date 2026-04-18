@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPTS_DIR="{{ .chezmoi.sourceDir }}/scripts/"
+
+# Run all scripts in order
+for script in "$SCRIPTS_DIR"/init/[0-9]*.sh; do
+  [[ -f "$script" ]] || continue
+  echo "==> Running: $(basename "$script")"
+  bash "$script"
+done

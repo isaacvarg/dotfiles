@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# make sure something was passed
+if [ -z "$1" ]; then
+  echo "Usage: dots-header <text>"
+  exit 1
+fi
+
+# Generate the header
+echo "$*" | toilet -f wideterm | boxes -d ansi | wl-copy
