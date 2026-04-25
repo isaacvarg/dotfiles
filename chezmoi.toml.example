@@ -3,4 +3,5 @@
   op_account = "ABCDE12345"
   # use wurk, home, laptop
   system = "wurk"
+  # id from 'op item get <1pass entry name>'
   github = "code"
