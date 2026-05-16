@@ -1,0 +1,14 @@
+-- chezmoi:template:left-delimiter="-- {{" right-delimiter="}}"
+
+-- trying out this way instead of simply putting the local
+-- variables in the file so I can really customize with
+-- chezmoi templates for my different systems
+
+local variables = {}
+
+variables.terminal = "ghostty"
+variables.fileManager = "yazi"
+variables.menu = "~/.config/rofi/launcher.sh"
+variables.mainMod = "SUPER"
+
+return variables

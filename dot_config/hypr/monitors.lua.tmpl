@@ -1,0 +1,26 @@
+-- chezmoi:template:left-delimiter="-- {{" right-delimiter="}}"
+
+-- {{- if eq .system "home" }}
+hl.monitor({
+	output = "DP-3",
+	mode = "2560x1440@144",
+	position = "0x0",
+	scale = 1,
+})
+-- {{- end }}
+
+-- {{- if eq .system "work"}}
+hl.monitor({
+	output = "DP-1",
+	mode = "2560x1440@75",
+	position = "0x1440",
+	scale = 1,
+})
+
+hl.monitor({
+	output = "HDMI-A-1",
+	mode = "2560x1440@60",
+	position = "0x0",
+	scale = 1,
+})
+-- {{- end }}

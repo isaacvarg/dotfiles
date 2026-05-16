@@ -1,0 +1,8 @@
+hl.on("hyprland.start", function()
+	hl.exec_cmd("quickshell")
+	hl.exec_cmd("waypaper --restore")
+	hl.exec_cmd("systemctl --user start hyprpolkitagent")
+	hl.exec_cmd("1password --silent")
+	hl.exec_cmd("dunst")
+	hl.exec_cmd("~/.local/bin/mount-nas.sh")
+end)
