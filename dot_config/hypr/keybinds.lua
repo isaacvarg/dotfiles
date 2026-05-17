@@ -4,7 +4,6 @@ local mainMod = vars.mainMod
 
 -- todo
 -- swap windows
--- fullscreen
 
 --  launch applications
 hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd(vars.terminal))
@@ -19,6 +18,7 @@ hl.bind(mainMod .. " + O", hl.dsp.exec_cmd("hyprshot -m region -o ~/downloads"))
 
 hl.bind(mainMod .. " + Q", hl.dsp.window.close())
 hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
+hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }))
 
 -- window focus
 hl.bind(mainMod .. " + H", hl.dsp.focus({ direction = "left" }))
