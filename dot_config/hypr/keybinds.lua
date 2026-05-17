@@ -10,7 +10,7 @@ hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd(vars.terminal))
 hl.bind(mainMod .. " + T", hl.dsp.exec_cmd(vars.terminal))
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(vars.menu))
 hl.bind(mainMod .. " + P", hl.dsp.exec_cmd("1password </dev/null &>/dev/null &"))
-hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(vars.terminal .. "-e yazi"))
+hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(vars.terminal .. " -e yazi"))
 hl.bind(mainMod .. " + C", hl.dsp.exec_cmd("hyprpicker -a"))
 hl.bind(mainMod .. " + O", hl.dsp.exec_cmd("hyprshot -m region -o ~/downloads"))
 
