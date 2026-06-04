@@ -13,3 +13,6 @@ export HISTFILE="$XDG_STATE_HOME/zsh/history"
 export HISTSIZE=10000
 export SAVEHIST=10000
 
+# secrets
+export TODOIST_API_TOKEN=$(secret-tool lookup token todoist)
+
