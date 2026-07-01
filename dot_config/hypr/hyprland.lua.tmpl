@@ -5,6 +5,15 @@ require("looks")
 require("keybinds")
 require("variables")
 
+-- layer rule fix for hyprshot screenshots
+-- having a blackborder
+-- source: https://github.com/Gustash/Hyprshot/issues/60#issuecomment-4474524118
+hl.layer_rule({
+	name = "no-anim-for-selection",
+	match = { namespace = "selection" },
+	no_anim = true,
+})
+
 -- ┌────────────────────────┐
 -- │ ＵＮＯＲＧＡＮＩＺＥＤ │
 -- └────────────────────────┘
