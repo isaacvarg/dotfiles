@@ -8,7 +8,7 @@ return {
     init = function()
       -- Disable conceal specifically for markdown files
       vim.api.nvim_create_autocmd("FileType", {
-        pattern = { "markdown", "markdown.mdx" },
+        pattern = { "markdown", "markdown.mdx", "mdx" },
         callback = function()
           vim.opt_local.conceallevel = 0
         end,
